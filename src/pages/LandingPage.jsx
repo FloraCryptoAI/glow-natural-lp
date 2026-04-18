@@ -2,19 +2,20 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Check, Leaf, Calendar, BarChart3, Search, Zap } from 'lucide-react';
 
-// ── Brand ─────────────────────────────────────────────────────────────────────
-const P   = '#3FAF84';
-const PD  = '#2D8B68';
-const PL  = '#F0FDF9';
-const PL2 = '#DCFCE7';
+// ── Brand — pink palette ──────────────────────────────────────────────────────
+const P   = '#FB45A9';   // primary pink
+const PD  = '#E03594';   // darker pink
+const PL  = '#FFF5FA';   // light bg
+const PL2 = '#FFE4F2';   // light accent
 
-const LOGO = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69b5eac4d8895bcbf9f1446e/5439b0e9c_Frame96.png';
+const LOGO = '/logo.png';
+const HERO = '/hero.jpg';
 
 // ── Email Capture ─────────────────────────────────────────────────────────────
 function EmailCapture({ dark = false }) {
-  const [email, setEmail]       = useState('');
+  const [email, setEmail]         = useState('');
   const [submitted, setSubmitted] = useState(false);
-  const [error, setError]       = useState('');
+  const [error, setError]         = useState('');
 
   const submit = (e) => {
     e.preventDefault();
@@ -37,11 +38,12 @@ function EmailCapture({ dark = false }) {
           border: `1px solid ${dark ? 'rgba(255,255,255,0.2)' : PL2}`,
         }}
       >
-        <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: dark ? '#fff' : P }}>
+        <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
+          style={{ background: dark ? '#fff' : P }}>
           <Check className="w-4 h-4" style={{ color: dark ? P : '#fff' }} />
         </div>
         <p className={`font-semibold text-sm ${dark ? 'text-white' : 'text-stone-700'}`}>
-          Incrível! Você será a primeira a saber quando lançarmos. 🌿
+          Incrível! Você será a primeira a saber quando lançarmos. 🌸
         </p>
       </motion.div>
     );
@@ -69,9 +71,9 @@ function EmailCapture({ dark = false }) {
           type="submit"
           className="flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-sm font-bold whitespace-nowrap transition-all hover:opacity-90 active:scale-[0.98]"
           style={{
-            background: dark ? '#fff' : P,
-            color:      dark ? P     : '#fff',
-            boxShadow:  dark ? 'none' : `0 2px 12px ${P}55`,
+            background: dark ? '#fff' : `linear-gradient(135deg, ${P}, ${PD})`,
+            color: dark ? P : '#fff',
+            boxShadow: dark ? 'none' : `0 2px 16px ${P}66`,
           }}
         >
           Quero ser avisada <ArrowRight className="w-4 h-4" />
@@ -103,11 +105,20 @@ export default function LandingPage() {
     <div className="min-h-screen bg-white">
 
       {/* ══ HEADER ══════════════════════════════════════════════════════════ */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl" style={{ borderBottom: '1px solid rgba(0,0,0,0.06)' }}>
+      <header
+        className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl"
+        style={{ borderBottom: '1px solid rgba(0,0,0,0.06)' }}
+      >
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <img src={LOGO} alt="NatGlow" className="w-9 h-9 rounded-xl" />
-            <span style={{ fontFamily: "'Inter', sans-serif", fontWeight: 400, color: '#535353', fontSize: '15px', letterSpacing: '-0.01em' }}>
+          <div className="flex items-center gap-3">
+            <img src={LOGO} alt="NatGlow" className="w-11 h-11 rounded-2xl object-cover" />
+            <span style={{
+              fontFamily: "'Inter', sans-serif",
+              fontWeight: 400,
+              color: '#535353',
+              fontSize: '16px',
+              letterSpacing: '-0.01em',
+            }}>
               NatGlow
             </span>
           </div>
@@ -115,7 +126,7 @@ export default function LandingPage() {
           <a
             href="#waitlist"
             className="flex items-center gap-1.5 text-sm font-semibold text-white px-5 py-2.5 rounded-full transition-all hover:opacity-90 active:scale-95"
-            style={{ background: P }}
+            style={{ background: `linear-gradient(135deg, ${P}, ${PD})` }}
           >
             Entrar na lista <ArrowRight className="w-3.5 h-3.5" />
           </a>
@@ -132,7 +143,7 @@ export default function LandingPage() {
             width: '640px', height: '640px',
             borderRadius: '50%',
             background: `radial-gradient(circle, ${PL2} 0%, transparent 70%)`,
-            opacity: 0.7,
+            opacity: 0.8,
           }}
         />
 
@@ -147,7 +158,7 @@ export default function LandingPage() {
               className="inline-flex items-center gap-2 text-xs font-semibold px-4 py-1.5 rounded-full mb-7"
               style={{ background: PL, color: PD, border: `1px solid ${PL2}` }}
             >
-              🌿 Lista de espera aberta
+              🌸 Lista de espera aberta
             </motion.div>
 
             <motion.h1
@@ -190,8 +201,8 @@ export default function LandingPage() {
               className="flex items-center gap-8 mt-12"
             >
               {[
-                { num: '2.000+', label: 'na lista de espera' },
-                { num: '100%',   label: 'natural e sem química' },
+                { num: '2.000+',  label: 'na lista de espera' },
+                { num: '100%',    label: 'natural e sem química' },
                 { num: '21 dias', label: 'para ver resultados' },
               ].map((s, i) => (
                 <div key={i}>
@@ -202,21 +213,27 @@ export default function LandingPage() {
             </motion.div>
           </div>
 
-          {/* Right — visual */}
+          {/* Right — hero image */}
           <motion.div
             initial={{ opacity: 0, x: 48 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.75, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
             className="relative hidden lg:block"
           >
-            <div className="relative rounded-3xl overflow-hidden" style={{ boxShadow: '0 32px 80px rgba(0,0,0,0.14)' }}>
+            <div
+              className="relative rounded-3xl overflow-hidden"
+              style={{ boxShadow: '0 32px 80px rgba(251,69,169,0.18)' }}
+            >
               <img
-                src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=800&q=85"
+                src={HERO}
                 alt="Cabelo saudável"
                 className="w-full object-cover object-top"
                 style={{ height: '560px' }}
               />
-              <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.18) 0%, transparent 50%)' }} />
+              <div
+                className="absolute inset-0"
+                style={{ background: 'linear-gradient(to top, rgba(251,69,169,0.08) 0%, transparent 50%)' }}
+              />
             </div>
 
             {/* Floating card 1 */}
@@ -225,7 +242,7 @@ export default function LandingPage() {
               animate={{ opacity: 1, x: 0, y: 0 }}
               transition={{ delay: 0.9, duration: 0.5 }}
               className="absolute -left-12 top-12 bg-white rounded-2xl px-5 py-4 flex items-center gap-3"
-              style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.12)', border: '1px solid rgba(0,0,0,0.06)' }}
+              style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.10)', border: '1px solid rgba(0,0,0,0.05)' }}
             >
               <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: PL }}>
                 <Search className="w-5 h-5" style={{ color: P }} />
@@ -242,7 +259,7 @@ export default function LandingPage() {
               animate={{ opacity: 1, x: 0, y: 0 }}
               transition={{ delay: 1.1, duration: 0.5 }}
               className="absolute -right-10 bottom-16 bg-white rounded-2xl px-5 py-4 flex items-center gap-3"
-              style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.12)', border: '1px solid rgba(0,0,0,0.06)' }}
+              style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.10)', border: '1px solid rgba(0,0,0,0.05)' }}
             >
               <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: PL }}>
                 <Leaf className="w-5 h-5" style={{ color: P }} />
@@ -276,7 +293,7 @@ export default function LandingPage() {
             ].map((item, i) => (
               <FadeIn key={i} delay={i * 0.1}>
                 <div
-                  className="rounded-2xl p-8 h-full transition-colors hover:border-stone-600"
+                  className="rounded-2xl p-8 h-full transition-colors"
                   style={{ border: '1px solid rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.03)' }}
                 >
                   <div className="text-4xl mb-5">{item.emoji}</div>
@@ -314,20 +331,17 @@ export default function LandingPage() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {[
-              { icon: Search,   title: 'Diagnóstico capilar', desc: 'Identifica o que está prejudicando seu cabelo em menos de 60 segundos.' },
-              { icon: Leaf,     title: 'Receitas naturais',   desc: 'Tratamentos caseiros com ingredientes simples e eficazes.' },
-              { icon: Calendar, title: 'Plano de 21 dias',    desc: 'Rotina estruturada dia por dia, sem precisar pensar.' },
-              { icon: BarChart3, title: 'Evolução visível',   desc: 'Acompanhe a transformação do seu cabelo ao longo do tempo.' },
+              { icon: Search,    title: 'Diagnóstico capilar', desc: 'Identifica o que está prejudicando seu cabelo em menos de 60 segundos.' },
+              { icon: Leaf,      title: 'Receitas naturais',   desc: 'Tratamentos caseiros com ingredientes simples e eficazes.' },
+              { icon: Calendar,  title: 'Plano de 21 dias',    desc: 'Rotina estruturada dia por dia, sem precisar pensar.' },
+              { icon: BarChart3, title: 'Evolução visível',    desc: 'Acompanhe a transformação do seu cabelo ao longo do tempo.' },
             ].map((f, i) => (
               <FadeIn key={i} delay={i * 0.08}>
                 <div
                   className="bg-white rounded-2xl p-7 h-full transition-all hover:-translate-y-1 hover:shadow-lg"
                   style={{ border: '1px solid rgba(0,0,0,0.05)', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}
                 >
-                  <div
-                    className="w-11 h-11 rounded-xl flex items-center justify-center mb-6"
-                    style={{ background: PL2 }}
-                  >
+                  <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-6" style={{ background: PL2 }}>
                     <f.icon className="w-5 h-5" style={{ color: P }} />
                   </div>
                   <h3 className="font-bold text-stone-800 mb-2">{f.title}</h3>
@@ -351,9 +365,9 @@ export default function LandingPage() {
 
           <div>
             {[
-              { n: '01', icon: Search,   title: 'Faça o diagnóstico',  desc: 'Responda 5 perguntas sobre seus hábitos. Rápido, sem enrolação — menos de 1 minuto.' },
-              { n: '02', icon: Zap,      title: 'Receba seu plano',     desc: 'Você recebe uma rotina 100% personalizada com receitas para o seu tipo de cabelo.' },
-              { n: '03', icon: Leaf,     title: 'Veja a transformação', desc: 'Siga o plano de 21 dias. Menos frizz, mais brilho e cabelo saudável de verdade.' },
+              { n: '01', icon: Search, title: 'Faça o diagnóstico',  desc: 'Responda 5 perguntas sobre seus hábitos. Rápido, sem enrolação — menos de 1 minuto.' },
+              { n: '02', icon: Zap,    title: 'Receba seu plano',     desc: 'Você recebe uma rotina 100% personalizada com receitas para o seu tipo de cabelo.' },
+              { n: '03', icon: Leaf,   title: 'Veja a transformação', desc: 'Siga o plano de 21 dias. Menos frizz, mais brilho e cabelo saudável de verdade.' },
             ].map((s, i) => (
               <FadeIn key={i} delay={i * 0.1}>
                 <div
@@ -368,18 +382,10 @@ export default function LandingPage() {
                   </span>
                   <div>
                     <div className="flex items-center gap-3 mb-3">
-                      <div
-                        className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
-                        style={{ background: PL }}
-                      >
+                      <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: PL }}>
                         <s.icon className="w-4 h-4" style={{ color: P }} />
                       </div>
-                      <span
-                        className="text-xs font-bold tracking-widest uppercase sm:hidden"
-                        style={{ color: P }}
-                      >
-                        {s.n}
-                      </span>
+                      <span className="text-xs font-bold tracking-widest uppercase sm:hidden" style={{ color: P }}>{s.n}</span>
                       <h3 className="text-xl font-bold text-stone-900">{s.title}</h3>
                     </div>
                     <p className="text-stone-500 leading-relaxed">{s.desc}</p>
@@ -392,27 +398,29 @@ export default function LandingPage() {
       </section>
 
       {/* ══ CTA FINAL ════════════════════════════════════════════════════════ */}
-      <section id="waitlist" className="py-32 px-6 relative overflow-hidden" style={{ background: `linear-gradient(135deg, ${P} 0%, ${PD} 100%)` }}>
-        {/* Shine overlay */}
+      <section
+        id="waitlist"
+        className="py-32 px-6 relative overflow-hidden"
+        style={{ background: `linear-gradient(135deg, ${P} 0%, ${PD} 100%)` }}
+      >
         <div
           className="absolute inset-0 pointer-events-none"
-          style={{ background: 'radial-gradient(ellipse at 75% 40%, rgba(255,255,255,0.15), transparent 60%)' }}
+          style={{ background: 'radial-gradient(ellipse at 75% 40%, rgba(255,255,255,0.18), transparent 60%)' }}
         />
-
         <div className="relative max-w-2xl mx-auto text-center">
           <FadeIn>
             <div
               className="inline-flex items-center gap-2 text-xs font-semibold text-white px-4 py-1.5 rounded-full mb-8"
               style={{ background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.2)' }}
             >
-              🌿 Acesso antecipado
+              🌸 Acesso antecipado
             </div>
 
             <h2 className="text-4xl lg:text-5xl font-extrabold text-white mb-5 leading-tight tracking-tight">
               Entre na lista VIP<br />antes do lançamento.
             </h2>
 
-            <p className="text-green-100 text-lg mb-10 leading-relaxed">
+            <p className="text-pink-100 text-lg mb-10 leading-relaxed">
               Seja uma das primeiras a experimentar o NatGlow.<br />
               Zero spam. Apenas um aviso quando estiver pronto.
             </p>
@@ -421,7 +429,7 @@ export default function LandingPage() {
               <EmailCapture dark />
             </div>
 
-            <div className="flex items-center justify-center gap-8 text-green-200 text-sm">
+            <div className="flex items-center justify-center gap-8 text-pink-200 text-sm">
               {['Gratuito', 'Sem cartão', 'Cancele quando quiser'].map((item, i) => (
                 <div key={i} className="flex items-center gap-1.5">
                   <Check className="w-3.5 h-3.5" />
@@ -437,7 +445,7 @@ export default function LandingPage() {
       <footer className="bg-stone-950 py-8 px-6">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2.5">
-            <img src={LOGO} alt="NatGlow" className="w-7 h-7 rounded-lg" />
+            <img src={LOGO} alt="NatGlow" className="w-8 h-8 rounded-xl object-cover" />
             <span style={{ fontFamily: "'Inter', sans-serif", fontWeight: 400, color: '#535353', fontSize: '14px' }}>
               NatGlow
             </span>
