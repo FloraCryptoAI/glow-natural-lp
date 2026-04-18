@@ -50,9 +50,38 @@ function EmailCapture({ dark = false }) {
   }
 
   return (
-    <form onSubmit={submit}>
+    <form onSubmit={submit} className="w-full">
+      {/* ── Mobile: stacked elements ── */}
+      <div className="flex flex-col gap-3 sm:hidden">
+        <input
+          type="email"
+          value={email}
+          onChange={e => { setEmail(e.target.value); setError(''); }}
+          placeholder="Enter your best email"
+          className="w-full px-5 py-4 rounded-full text-sm outline-none"
+          style={{
+            background: dark ? 'rgba(255,255,255,0.15)' : '#fff',
+            border: dark ? '1px solid rgba(255,255,255,0.25)' : '1px solid rgba(0,0,0,0.10)',
+            color: dark ? '#fff' : '#1c1c1c',
+            caretColor: P,
+          }}
+        />
+        <button
+          type="submit"
+          className="w-full flex items-center justify-center gap-2 px-7 py-4 rounded-full text-sm font-bold transition-all hover:opacity-90 active:scale-[0.98]"
+          style={{
+            background: dark ? '#fff' : `linear-gradient(135deg, ${P}, ${PD})`,
+            color: dark ? P : '#fff',
+            boxShadow: dark ? 'none' : `0 2px 16px ${P}66`,
+          }}
+        >
+          Notify me <ArrowRight className="w-4 h-4" />
+        </button>
+      </div>
+
+      {/* ── Desktop: pill ── */}
       <div
-        className="flex flex-col sm:flex-row gap-1.5 p-1.5 rounded-full"
+        className="hidden sm:flex gap-1.5 p-1.5 rounded-full"
         style={{
           background: dark ? 'rgba(255,255,255,0.12)' : '#fff',
           boxShadow: dark ? 'none' : '0 4px 24px rgba(0,0,0,0.08)',
@@ -79,7 +108,8 @@ function EmailCapture({ dark = false }) {
           Notify me <ArrowRight className="w-4 h-4" />
         </button>
       </div>
-      {error && <p className="text-red-400 text-xs mt-2 ml-6">{error}</p>}
+
+      {error && <p className="text-red-400 text-xs mt-2 ml-2">{error}</p>}
     </form>
   );
 }
@@ -214,10 +244,10 @@ export default function LandingPage() {
 
           {/* Right — hero image */}
           <motion.div
-            initial={{ opacity: 0, x: 48 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, x: 0, y: 24 }}
+            animate={{ opacity: 1, x: 0, y: 0 }}
             transition={{ duration: 0.75, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-            className="relative hidden lg:block"
+            className="relative"
           >
             <div
               className="relative rounded-3xl overflow-hidden"
@@ -226,8 +256,7 @@ export default function LandingPage() {
               <img
                 src={HERO}
                 alt="Healthy hair"
-                className="w-full object-cover object-top"
-                style={{ height: '560px' }}
+                className="w-full object-cover object-top h-72 lg:h-[560px]"
               />
               <div
                 className="absolute inset-0"
@@ -240,7 +269,7 @@ export default function LandingPage() {
               initial={{ opacity: 0, x: -24, y: 8 }}
               animate={{ opacity: 1, x: 0, y: 0 }}
               transition={{ delay: 0.9, duration: 0.5 }}
-              className="absolute -left-12 top-12 bg-white rounded-2xl px-5 py-4 flex items-center gap-3"
+              className="hidden lg:flex absolute -left-12 top-12 bg-white rounded-2xl px-5 py-4 items-center gap-3"
               style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.10)', border: '1px solid rgba(0,0,0,0.05)' }}
             >
               <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: PL }}>
@@ -257,7 +286,7 @@ export default function LandingPage() {
               initial={{ opacity: 0, x: 24, y: 8 }}
               animate={{ opacity: 1, x: 0, y: 0 }}
               transition={{ delay: 1.1, duration: 0.5 }}
-              className="absolute -right-10 bottom-16 bg-white rounded-2xl px-5 py-4 flex items-center gap-3"
+              className="hidden lg:flex absolute -right-10 bottom-16 bg-white rounded-2xl px-5 py-4 items-center gap-3"
               style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.10)', border: '1px solid rgba(0,0,0,0.05)' }}
             >
               <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: PL }}>
