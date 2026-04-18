@@ -3,10 +3,10 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Check, Leaf, Calendar, BarChart3, Search, Zap } from 'lucide-react';
 
 // ── Brand — pink palette ──────────────────────────────────────────────────────
-const P   = '#FB45A9';   // primary pink
-const PD  = '#E03594';   // darker pink
-const PL  = '#FFF5FA';   // light bg
-const PL2 = '#FFE4F2';   // light accent
+const P   = '#FB45A9';
+const PD  = '#E03594';
+const PL  = '#FFF5FA';
+const PL2 = '#FFE4F2';
 
 const LOGO = '/logo.png';
 const HERO = '/hero.jpg';
@@ -20,7 +20,7 @@ function EmailCapture({ dark = false }) {
   const submit = (e) => {
     e.preventDefault();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
-      setError('Digite um e-mail válido.');
+      setError('Please enter a valid email.');
       return;
     }
     setSubmitted(true);
@@ -43,7 +43,7 @@ function EmailCapture({ dark = false }) {
           <Check className="w-4 h-4" style={{ color: dark ? P : '#fff' }} />
         </div>
         <p className={`font-semibold text-sm ${dark ? 'text-white' : 'text-stone-700'}`}>
-          Incrível! Você será a primeira a saber quando lançarmos. 🌸
+          Amazing! You'll be the first to know when we launch. 🌸
         </p>
       </motion.div>
     );
@@ -63,7 +63,7 @@ function EmailCapture({ dark = false }) {
           type="email"
           value={email}
           onChange={e => { setEmail(e.target.value); setError(''); }}
-          placeholder="Digite seu melhor e-mail"
+          placeholder="Enter your best email"
           className="flex-1 px-5 py-3.5 bg-transparent text-sm outline-none rounded-full"
           style={{ color: dark ? '#fff' : '#1c1c1c', caretColor: P }}
         />
@@ -76,7 +76,7 @@ function EmailCapture({ dark = false }) {
             boxShadow: dark ? 'none' : `0 2px 16px ${P}66`,
           }}
         >
-          Quero ser avisada <ArrowRight className="w-4 h-4" />
+          Notify me <ArrowRight className="w-4 h-4" />
         </button>
       </div>
       {error && <p className="text-red-400 text-xs mt-2 ml-6">{error}</p>}
@@ -128,14 +128,13 @@ export default function LandingPage() {
             className="flex items-center gap-1.5 text-sm font-semibold text-white px-5 py-2.5 rounded-full transition-all hover:opacity-90 active:scale-95"
             style={{ background: `linear-gradient(135deg, ${P}, ${PD})` }}
           >
-            Entrar na lista <ArrowRight className="w-3.5 h-3.5" />
+            Join the list <ArrowRight className="w-3.5 h-3.5" />
           </a>
         </div>
       </header>
 
       {/* ══ HERO ════════════════════════════════════════════════════════════ */}
       <section className="relative pt-32 pb-24 overflow-hidden">
-        {/* Blob bg */}
         <div
           className="absolute pointer-events-none"
           style={{
@@ -158,7 +157,7 @@ export default function LandingPage() {
               className="inline-flex items-center gap-2 text-xs font-semibold px-4 py-1.5 rounded-full mb-7"
               style={{ background: PL, color: PD, border: `1px solid ${PL2}` }}
             >
-              🌸 Lista de espera aberta
+              🌸 Waitlist now open
             </motion.div>
 
             <motion.h1
@@ -167,9 +166,9 @@ export default function LandingPage() {
               transition={{ duration: 0.65, delay: 0.07, ease: [0.22, 1, 0.36, 1] }}
               className="text-5xl lg:text-[3.75rem] font-extrabold text-stone-900 leading-[1.1] tracking-tight mb-6"
             >
-              Seu cabelo merece
-              <br />uma rotina que
-              <br /><span style={{ color: P }}>realmente funciona.</span>
+              Your hair deserves
+              <br />a routine that
+              <br /><span style={{ color: P }}>actually works.</span>
             </motion.h1>
 
             <motion.p
@@ -178,8 +177,8 @@ export default function LandingPage() {
               transition={{ duration: 0.65, delay: 0.13, ease: [0.22, 1, 0.36, 1] }}
               className="text-lg text-stone-500 leading-relaxed mb-9 max-w-lg"
             >
-              O NatGlow analisa seus hábitos e cria uma rotina capilar personalizada
-              com receitas naturais que realmente funcionam — sem químicas, sem achismos.
+              NatGlow analyzes your habits and builds a personalized hair care routine
+              with natural recipes that truly work — no harsh chemicals, no guesswork.
             </motion.p>
 
             <motion.div
@@ -190,7 +189,7 @@ export default function LandingPage() {
             >
               <EmailCapture />
               <p className="text-xs text-stone-400 mt-3 ml-6">
-                Sem spam. Só um aviso quando lançarmos.
+                No spam. Just one email when we launch.
               </p>
             </motion.div>
 
@@ -201,9 +200,9 @@ export default function LandingPage() {
               className="flex items-center gap-8 mt-12"
             >
               {[
-                { num: '2.000+',  label: 'na lista de espera' },
-                { num: '100%',    label: 'natural e sem química' },
-                { num: '21 dias', label: 'para ver resultados' },
+                { num: '2,000+',  label: 'already on the waitlist' },
+                { num: '100%',    label: 'natural & chemical-free' },
+                { num: '21 days', label: 'to see real results' },
               ].map((s, i) => (
                 <div key={i}>
                   <p className="text-2xl font-extrabold" style={{ color: i === 0 ? P : '#1c1c1c' }}>{s.num}</p>
@@ -226,7 +225,7 @@ export default function LandingPage() {
             >
               <img
                 src={HERO}
-                alt="Cabelo saudável"
+                alt="Healthy hair"
                 className="w-full object-cover object-top"
                 style={{ height: '560px' }}
               />
@@ -248,8 +247,8 @@ export default function LandingPage() {
                 <Search className="w-5 h-5" style={{ color: P }} />
               </div>
               <div>
-                <p className="text-[11px] text-stone-400 font-medium">Diagnóstico</p>
-                <p className="font-bold text-stone-800 text-sm">Personalizado</p>
+                <p className="text-[11px] text-stone-400 font-medium">Diagnosis</p>
+                <p className="font-bold text-stone-800 text-sm">Personalized</p>
               </div>
             </motion.div>
 
@@ -265,8 +264,8 @@ export default function LandingPage() {
                 <Leaf className="w-5 h-5" style={{ color: P }} />
               </div>
               <div>
-                <p className="text-[11px] text-stone-400 font-medium">Ingredientes</p>
-                <p className="font-bold text-stone-800 text-sm">100% naturais</p>
+                <p className="text-[11px] text-stone-400 font-medium">Ingredients</p>
+                <p className="font-bold text-stone-800 text-sm">100% natural</p>
               </div>
             </motion.div>
           </motion.div>
@@ -274,22 +273,21 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ══ PROBLEMA — dark ══════════════════════════════════════════════════ */}
+      {/* ══ PROBLEM — dark ═══════════════════════════════════════════════════ */}
       <section className="py-28 bg-stone-950">
         <div className="max-w-6xl mx-auto px-6">
           <FadeIn className="mb-16">
-            <p className="text-xs font-bold tracking-widest uppercase mb-5" style={{ color: P }}>O problema</p>
+            <p className="text-xs font-bold tracking-widest uppercase mb-5" style={{ color: P }}>The problem</p>
             <h2 className="text-4xl lg:text-5xl font-extrabold text-white leading-tight max-w-2xl">
-              Você provavelmente está
-              cuidando do cabelo do jeito errado.
+              You're probably taking care of your hair the wrong way.
             </h2>
           </FadeIn>
 
           <div className="grid md:grid-cols-3 gap-5">
             {[
-              { emoji: '🌀', title: 'Frizz que não vai embora', desc: 'Mesmo usando condicionador caro, o frizz persiste. O problema não é o produto — é a rotina.' },
-              { emoji: '💔', title: 'Ressecamento profundo',    desc: 'Cabelo quebradiço e sem brilho são sinais de dano acumulado que nenhum shampoo comum resolve.' },
-              { emoji: '⚠️', title: 'Queda mais intensa',       desc: 'Cuidados incorretos no dia a dia podem acelerar a queda sem que você perceba.' },
+              { emoji: '🌀', title: 'Frizz that won\'t quit',  desc: 'Even with expensive conditioner, frizz keeps coming back. The problem isn\'t the product — it\'s the routine.' },
+              { emoji: '💔', title: 'Deep dryness',             desc: 'Brittle, dull hair is a sign of accumulated damage that no regular shampoo can fix on its own.' },
+              { emoji: '⚠️', title: 'Excessive hair loss',      desc: 'Incorrect daily habits can accelerate shedding without you even noticing.' },
             ].map((item, i) => (
               <FadeIn key={i} delay={i * 0.1}>
                 <div
@@ -309,8 +307,8 @@ export default function LandingPage() {
               className="text-stone-400 text-sm pl-5 leading-relaxed max-w-lg"
               style={{ borderLeft: `2px solid ${P}` }}
             >
-              A boa notícia: tudo isso é reversível com a rotina certa.
-              É exatamente para isso que o NatGlow foi criado.
+              The good news: all of this is reversible with the right routine.
+              That's exactly what NatGlow was built for.
             </p>
           </FadeIn>
         </div>
@@ -320,21 +318,21 @@ export default function LandingPage() {
       <section className="py-28 px-6" style={{ background: PL }}>
         <div className="max-w-6xl mx-auto">
           <FadeIn className="text-center mb-16">
-            <p className="text-xs font-bold tracking-widest uppercase mb-5" style={{ color: P }}>A solução</p>
+            <p className="text-xs font-bold tracking-widest uppercase mb-5" style={{ color: P }}>The solution</p>
             <h2 className="text-4xl lg:text-5xl font-extrabold text-stone-900 mb-4 tracking-tight">
-              Tudo que você precisa,<br />em um só lugar.
+              Everything you need,<br />in one place.
             </h2>
             <p className="text-stone-500 max-w-md mx-auto">
-              Diagnóstico, receitas, plano e acompanhamento. Simples assim.
+              Diagnosis, recipes, plan and progress tracking. That simple.
             </p>
           </FadeIn>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {[
-              { icon: Search,    title: 'Diagnóstico capilar', desc: 'Identifica o que está prejudicando seu cabelo em menos de 60 segundos.' },
-              { icon: Leaf,      title: 'Receitas naturais',   desc: 'Tratamentos caseiros com ingredientes simples e eficazes.' },
-              { icon: Calendar,  title: 'Plano de 21 dias',    desc: 'Rotina estruturada dia por dia, sem precisar pensar.' },
-              { icon: BarChart3, title: 'Evolução visível',    desc: 'Acompanhe a transformação do seu cabelo ao longo do tempo.' },
+              { icon: Search,    title: 'Hair diagnosis',      desc: 'Pinpoints what\'s damaging your hair in under 60 seconds.' },
+              { icon: Leaf,      title: 'Natural recipes',     desc: 'Homemade treatments with simple, effective ingredients.' },
+              { icon: Calendar,  title: '21-day plan',         desc: 'A day-by-day structured routine you can follow without overthinking.' },
+              { icon: BarChart3, title: 'Visible progress',    desc: 'Track your hair\'s transformation over time.' },
             ].map((f, i) => (
               <FadeIn key={i} delay={i * 0.08}>
                 <div
@@ -353,21 +351,21 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ══ COMO FUNCIONA ════════════════════════════════════════════════════ */}
+      {/* ══ HOW IT WORKS ════════════════════════════════════════════════════ */}
       <section className="py-28 px-6 bg-white">
         <div className="max-w-4xl mx-auto">
           <FadeIn className="text-center mb-16">
-            <p className="text-xs font-bold tracking-widest uppercase mb-5" style={{ color: P }}>Como funciona</p>
+            <p className="text-xs font-bold tracking-widest uppercase mb-5" style={{ color: P }}>How it works</p>
             <h2 className="text-4xl lg:text-5xl font-extrabold text-stone-900 tracking-tight">
-              Três passos. Resultado real.
+              Three steps. Real results.
             </h2>
           </FadeIn>
 
           <div>
             {[
-              { n: '01', icon: Search, title: 'Faça o diagnóstico',  desc: 'Responda 5 perguntas sobre seus hábitos. Rápido, sem enrolação — menos de 1 minuto.' },
-              { n: '02', icon: Zap,    title: 'Receba seu plano',     desc: 'Você recebe uma rotina 100% personalizada com receitas para o seu tipo de cabelo.' },
-              { n: '03', icon: Leaf,   title: 'Veja a transformação', desc: 'Siga o plano de 21 dias. Menos frizz, mais brilho e cabelo saudável de verdade.' },
+              { n: '01', icon: Search, title: 'Take the diagnosis',     desc: 'Answer 5 quick questions about your habits. Straightforward — takes less than 1 minute.' },
+              { n: '02', icon: Zap,    title: 'Get your plan',          desc: 'You\'ll receive a 100% personalized routine with recipes tailored to your hair type.' },
+              { n: '03', icon: Leaf,   title: 'See the transformation', desc: 'Follow the 21-day plan. Less frizz, more shine and truly healthy hair.' },
             ].map((s, i) => (
               <FadeIn key={i} delay={i * 0.1}>
                 <div
@@ -397,7 +395,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ══ CTA FINAL ════════════════════════════════════════════════════════ */}
+      {/* ══ FINAL CTA ═══════════════════════════════════════════════════════ */}
       <section
         id="waitlist"
         className="py-32 px-6 relative overflow-hidden"
@@ -413,16 +411,16 @@ export default function LandingPage() {
               className="inline-flex items-center gap-2 text-xs font-semibold text-white px-4 py-1.5 rounded-full mb-8"
               style={{ background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.2)' }}
             >
-              🌸 Acesso antecipado
+              🌸 Early access
             </div>
 
             <h2 className="text-4xl lg:text-5xl font-extrabold text-white mb-5 leading-tight tracking-tight">
-              Entre na lista VIP<br />antes do lançamento.
+              Join the VIP list<br />before we launch.
             </h2>
 
             <p className="text-pink-100 text-lg mb-10 leading-relaxed">
-              Seja uma das primeiras a experimentar o NatGlow.<br />
-              Zero spam. Apenas um aviso quando estiver pronto.
+              Be among the first to experience NatGlow.<br />
+              Zero spam. Just one notification when we're ready.
             </p>
 
             <div className="max-w-lg mx-auto mb-8">
@@ -430,7 +428,7 @@ export default function LandingPage() {
             </div>
 
             <div className="flex items-center justify-center gap-8 text-pink-200 text-sm">
-              {['Gratuito', 'Sem cartão', 'Cancele quando quiser'].map((item, i) => (
+              {['Free', 'No credit card', 'Cancel anytime'].map((item, i) => (
                 <div key={i} className="flex items-center gap-1.5">
                   <Check className="w-3.5 h-3.5" />
                   <span>{item}</span>
@@ -451,7 +449,7 @@ export default function LandingPage() {
             </span>
           </div>
           <p className="text-stone-600 text-xs">
-            © {new Date().getFullYear()} NatGlow. Todos os direitos reservados.
+            © {new Date().getFullYear()} NatGlow. All rights reserved.
           </p>
           <a
             href="https://instagram.com"
