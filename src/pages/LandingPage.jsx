@@ -154,11 +154,11 @@ export default function LandingPage() {
           </div>
 
           <a
-            href="#waitlist"
+            href="https://app.glownatural.com.br"
             className="flex items-center gap-1.5 text-sm font-semibold text-white px-5 py-2.5 rounded-full transition-all hover:opacity-90 active:scale-95"
             style={{ background: `linear-gradient(135deg, ${P}, ${PD})` }}
           >
-            Join the list <ArrowRight className="w-3.5 h-3.5" />
+            Get started <ArrowRight className="w-3.5 h-3.5" />
           </a>
         </div>
       </header>
@@ -215,12 +215,15 @@ export default function LandingPage() {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.19, ease: [0.22, 1, 0.36, 1] }}
-              className="max-w-md"
             >
-              <EmailCapture />
-              <p className="text-xs text-stone-400 mt-3 ml-6">
-                No spam. Just one email when we launch.
-              </p>
+              <a
+                href="https://app.glownatural.com.br"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-white text-base font-bold transition-all hover:opacity-90 active:scale-[0.98]"
+                style={{ background: `linear-gradient(135deg, ${P}, ${PD})`, boxShadow: `0 4px 24px ${P}55` }}
+              >
+                Start my diagnosis <ArrowRight className="w-5 h-5" />
+              </a>
+              <p className="text-xs text-stone-400 mt-4">Free · Takes less than 60 seconds</p>
             </motion.div>
 
             <motion.div
@@ -448,13 +451,17 @@ export default function LandingPage() {
             </h2>
 
             <p className="text-pink-100 text-lg mb-10 leading-relaxed">
-              Be among the first to experience NatGlow.<br />
-              Zero spam. Just one notification when we're ready.
+              Get your personalized hair care plan in under 60 seconds.<br />
+              Free diagnosis. No credit card required.
             </p>
 
-            <div className="max-w-lg mx-auto mb-8">
-              <EmailCapture dark />
-            </div>
+            <a
+              href="https://app.glownatural.com.br"
+              className="inline-flex items-center gap-2 bg-white font-bold text-base px-10 py-4 rounded-full transition-all hover:opacity-90 active:scale-[0.98] mb-6"
+              style={{ color: P, boxShadow: '0 4px 24px rgba(0,0,0,0.15)' }}
+            >
+              Start my free diagnosis <ArrowRight className="w-5 h-5" />
+            </a>
 
             <div className="flex items-center justify-center gap-8 text-pink-200 text-sm">
               {['Free', 'No credit card', 'Cancel anytime'].map((item, i) => (
