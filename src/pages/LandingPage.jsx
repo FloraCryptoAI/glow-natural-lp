@@ -154,7 +154,7 @@ export default function LandingPage() {
           </div>
 
           <a
-            href="https://app.natglow.app"
+            href="https://app.natglow.app/Landing"
             className="flex items-center gap-1.5 text-sm font-semibold text-white px-5 py-2.5 rounded-full transition-all hover:opacity-90 active:scale-95"
             style={{ background: `linear-gradient(135deg, ${P}, ${PD})` }}
           >
@@ -217,7 +217,7 @@ export default function LandingPage() {
               transition={{ duration: 0.65, delay: 0.19, ease: [0.22, 1, 0.36, 1] }}
             >
               <a
-                href="https://app.natglow.app"
+                href="https://app.natglow.app/Landing"
                 className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-white text-base font-bold transition-all hover:opacity-90 active:scale-[0.98]"
                 style={{ background: `linear-gradient(135deg, ${P}, ${PD})`, boxShadow: `0 4px 24px ${P}55` }}
               >
@@ -456,7 +456,7 @@ export default function LandingPage() {
             </p>
 
             <a
-              href="https://app.natglow.app"
+              href="https://app.natglow.app/Landing"
               className="inline-flex items-center gap-2 bg-white font-bold text-base px-10 py-4 rounded-full transition-all hover:opacity-90 active:scale-[0.98] mb-6"
               style={{ color: P, boxShadow: '0 4px 24px rgba(0,0,0,0.15)' }}
             >
