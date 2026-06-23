@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Check, Leaf, Calendar, BarChart3, Search, Zap } from 'lucide-react';
+import { useLang } from '../lang';
 
 // ── Brand — pink palette ──────────────────────────────────────────────────────
 const P   = '#FB45A9';
@@ -11,108 +12,13 @@ const PL2 = '#FFE4F2';
 const LOGO = '/logo.png';
 const HERO = '/hero.jpg';
 
-// ── Email Capture ─────────────────────────────────────────────────────────────
-function EmailCapture({ dark = false }) {
-  const [email, setEmail]         = useState('');
-  const [submitted, setSubmitted] = useState(false);
-  const [error, setError]         = useState('');
+// Active funnel: /quiz-bold. /quiz redirects there anyway but linking direct
+// preserves UTMs and avoids an extra hop.
+const QUIZ_URL  = 'https://app.natglow.app/quiz-bold';
+const LOGIN_URL = 'https://app.natglow.app/Login';
 
-  const submit = (e) => {
-    e.preventDefault();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
-      setError('Please enter a valid email.');
-      return;
-    }
-    setSubmitted(true);
-  };
-
-  if (submitted) {
-    return (
-      <motion.div
-        initial={{ opacity: 0, scale: 0.96 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.35 }}
-        className="flex items-center gap-3 px-6 py-4 rounded-2xl"
-        style={{
-          background: dark ? 'rgba(255,255,255,0.12)' : PL2,
-          border: `1px solid ${dark ? 'rgba(255,255,255,0.2)' : PL2}`,
-        }}
-      >
-        <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
-          style={{ background: dark ? '#fff' : P }}>
-          <Check className="w-4 h-4" style={{ color: dark ? P : '#fff' }} />
-        </div>
-        <p className={`font-semibold text-sm ${dark ? 'text-white' : 'text-stone-700'}`}>
-          Amazing! You'll be the first to know when we launch. 🌸
-        </p>
-      </motion.div>
-    );
-  }
-
-  return (
-    <form onSubmit={submit} className="w-full">
-      {/* ── Mobile: stacked elements ── */}
-      <div className="flex flex-col gap-3 sm:hidden">
-        <input
-          type="email"
-          value={email}
-          onChange={e => { setEmail(e.target.value); setError(''); }}
-          placeholder="Enter your best email"
-          className="w-full px-5 py-4 rounded-full text-sm outline-none"
-          style={{
-            background: dark ? 'rgba(255,255,255,0.15)' : '#fff',
-            border: dark ? '1px solid rgba(255,255,255,0.25)' : '1px solid rgba(0,0,0,0.10)',
-            color: dark ? '#fff' : '#1c1c1c',
-            caretColor: P,
-          }}
-        />
-        <button
-          type="submit"
-          className="w-full flex items-center justify-center gap-2 px-7 py-4 rounded-full text-sm font-bold transition-all hover:opacity-90 active:scale-[0.98]"
-          style={{
-            background: dark ? '#fff' : `linear-gradient(135deg, ${P}, ${PD})`,
-            color: dark ? P : '#fff',
-            boxShadow: dark ? 'none' : `0 2px 16px ${P}66`,
-          }}
-        >
-          Notify me <ArrowRight className="w-4 h-4" />
-        </button>
-      </div>
-
-      {/* ── Desktop: pill ── */}
-      <div
-        className="hidden sm:flex gap-1.5 p-1.5 rounded-full"
-        style={{
-          background: dark ? 'rgba(255,255,255,0.12)' : '#fff',
-          boxShadow: dark ? 'none' : '0 4px 24px rgba(0,0,0,0.08)',
-          border: dark ? '1px solid rgba(255,255,255,0.18)' : '1px solid rgba(0,0,0,0.06)',
-        }}
-      >
-        <input
-          type="email"
-          value={email}
-          onChange={e => { setEmail(e.target.value); setError(''); }}
-          placeholder="Enter your best email"
-          className="flex-1 px-5 py-3.5 bg-transparent text-sm outline-none rounded-full"
-          style={{ color: dark ? '#fff' : '#1c1c1c', caretColor: P }}
-        />
-        <button
-          type="submit"
-          className="flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-sm font-bold whitespace-nowrap transition-all hover:opacity-90 active:scale-[0.98]"
-          style={{
-            background: dark ? '#fff' : `linear-gradient(135deg, ${P}, ${PD})`,
-            color: dark ? P : '#fff',
-            boxShadow: dark ? 'none' : `0 2px 16px ${P}66`,
-          }}
-        >
-          Notify me <ArrowRight className="w-4 h-4" />
-        </button>
-      </div>
-
-      {error && <p className="text-red-400 text-xs mt-2 ml-2">{error}</p>}
-    </form>
-  );
-}
+const FEATURE_ICONS = [Search, Leaf, Calendar, BarChart3];
+const STEP_ICONS    = [Search, Zap, Leaf];
 
 // ── Scroll reveal ─────────────────────────────────────────────────────────────
 function FadeIn({ children, delay = 0, className = '' }) {
@@ -131,6 +37,8 @@ function FadeIn({ children, delay = 0, className = '' }) {
 
 // ── Page ──────────────────────────────────────────────────────────────────────
 export default function LandingPage() {
+  const t = useLang();
+
   return (
     <div className="min-h-screen bg-white">
 
@@ -154,11 +62,11 @@ export default function LandingPage() {
           </div>
 
           <a
-            href="https://app.natglow.app/Login"
+            href={LOGIN_URL}
             className="flex items-center gap-1.5 text-sm font-semibold text-white px-5 py-2.5 rounded-full transition-all hover:opacity-90 active:scale-95"
             style={{ background: `linear-gradient(135deg, ${P}, ${PD})` }}
           >
-            Login
+            {t.header.login}
           </a>
         </div>
       </header>
@@ -187,7 +95,7 @@ export default function LandingPage() {
               className="inline-flex items-center gap-2 text-xs font-semibold px-4 py-1.5 rounded-full mb-7"
               style={{ background: PL, color: PD, border: `1px solid ${PL2}` }}
             >
-              🌸 Waitlist now open
+              {t.hero.badge}
             </motion.div>
 
             <motion.h1
@@ -196,9 +104,9 @@ export default function LandingPage() {
               transition={{ duration: 0.65, delay: 0.07, ease: [0.22, 1, 0.36, 1] }}
               className="text-5xl lg:text-[3.75rem] font-extrabold text-stone-900 leading-[1.1] tracking-tight mb-6"
             >
-              Your hair deserves
-              <br />a routine that
-              <br /><span style={{ color: P }}>actually works.</span>
+              {t.hero.h1_1}
+              <br />{t.hero.h1_2}
+              <br /><span style={{ color: P }}>{t.hero.h1_3}</span>
             </motion.h1>
 
             <motion.p
@@ -207,8 +115,7 @@ export default function LandingPage() {
               transition={{ duration: 0.65, delay: 0.13, ease: [0.22, 1, 0.36, 1] }}
               className="text-lg text-stone-500 leading-relaxed mb-9 max-w-lg"
             >
-              NatGlow analyzes your habits and builds a personalized hair care routine
-              with natural recipes that truly work — no harsh chemicals, no guesswork.
+              {t.hero.sub}
             </motion.p>
 
             <motion.div
@@ -217,13 +124,13 @@ export default function LandingPage() {
               transition={{ duration: 0.65, delay: 0.19, ease: [0.22, 1, 0.36, 1] }}
             >
               <a
-                href="https://app.natglow.app/quiz"
+                href={QUIZ_URL}
                 className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-white text-base font-bold transition-all hover:opacity-90 active:scale-[0.98]"
                 style={{ background: `linear-gradient(135deg, ${P}, ${PD})`, boxShadow: `0 4px 24px ${P}55` }}
               >
-                Start my diagnosis <ArrowRight className="w-5 h-5" />
+                {t.hero.cta} <ArrowRight className="w-5 h-5" />
               </a>
-              <p className="text-xs text-stone-400 mt-4">Free · Takes less than 60 seconds</p>
+              <p className="text-xs text-stone-400 mt-4">{t.hero.helper}</p>
             </motion.div>
 
             <motion.div
@@ -232,11 +139,7 @@ export default function LandingPage() {
               transition={{ delay: 0.45 }}
               className="flex items-center gap-8 mt-12"
             >
-              {[
-                { num: '2,000+',  label: 'already on the waitlist' },
-                { num: '100%',    label: 'natural & chemical-free' },
-                { num: '21 days', label: 'to see real results' },
-              ].map((s, i) => (
+              {t.hero.stats.map((s, i) => (
                 <div key={i}>
                   <p className="text-2xl font-extrabold" style={{ color: i === 0 ? P : '#1c1c1c' }}>{s.num}</p>
                   <p className="text-xs text-stone-400 mt-0.5 leading-tight">{s.label}</p>
@@ -279,8 +182,8 @@ export default function LandingPage() {
                 <Search className="w-5 h-5" style={{ color: P }} />
               </div>
               <div>
-                <p className="text-[11px] text-stone-400 font-medium">Diagnosis</p>
-                <p className="font-bold text-stone-800 text-sm">Personalized</p>
+                <p className="text-[11px] text-stone-400 font-medium">{t.hero.card1.label}</p>
+                <p className="font-bold text-stone-800 text-sm">{t.hero.card1.value}</p>
               </div>
             </motion.div>
 
@@ -296,8 +199,8 @@ export default function LandingPage() {
                 <Leaf className="w-5 h-5" style={{ color: P }} />
               </div>
               <div>
-                <p className="text-[11px] text-stone-400 font-medium">Ingredients</p>
-                <p className="font-bold text-stone-800 text-sm">100% natural</p>
+                <p className="text-[11px] text-stone-400 font-medium">{t.hero.card2.label}</p>
+                <p className="font-bold text-stone-800 text-sm">{t.hero.card2.value}</p>
               </div>
             </motion.div>
           </motion.div>
@@ -309,18 +212,14 @@ export default function LandingPage() {
       <section className="py-28 bg-stone-950">
         <div className="max-w-6xl mx-auto px-6">
           <FadeIn className="mb-16">
-            <p className="text-xs font-bold tracking-widest uppercase mb-5" style={{ color: P }}>The problem</p>
+            <p className="text-xs font-bold tracking-widest uppercase mb-5" style={{ color: P }}>{t.problem.tag}</p>
             <h2 className="text-4xl lg:text-5xl font-extrabold text-white leading-tight max-w-2xl">
-              You're probably taking care of your hair the wrong way.
+              {t.problem.h2}
             </h2>
           </FadeIn>
 
           <div className="grid md:grid-cols-3 gap-5">
-            {[
-              { emoji: '🌀', title: 'Frizz that won\'t quit',  desc: 'Even with expensive conditioner, frizz keeps coming back. The problem isn\'t the product — it\'s the routine.' },
-              { emoji: '💔', title: 'Deep dryness',             desc: 'Brittle, dull hair is a sign of accumulated damage that no regular shampoo can fix on its own.' },
-              { emoji: '⚠️', title: 'Excessive hair loss',      desc: 'Incorrect daily habits can accelerate shedding without you even noticing.' },
-            ].map((item, i) => (
+            {t.problem.cards.map((item, i) => (
               <FadeIn key={i} delay={i * 0.1}>
                 <div
                   className="rounded-2xl p-8 h-full transition-colors"
@@ -339,8 +238,7 @@ export default function LandingPage() {
               className="text-stone-400 text-sm pl-5 leading-relaxed max-w-lg"
               style={{ borderLeft: `2px solid ${P}` }}
             >
-              The good news: all of this is reversible with the right routine.
-              That's exactly what NatGlow was built for.
+              {t.problem.quote}
             </p>
           </FadeIn>
         </div>
@@ -350,35 +248,33 @@ export default function LandingPage() {
       <section className="py-28 px-6" style={{ background: PL }}>
         <div className="max-w-6xl mx-auto">
           <FadeIn className="text-center mb-16">
-            <p className="text-xs font-bold tracking-widest uppercase mb-5" style={{ color: P }}>The solution</p>
+            <p className="text-xs font-bold tracking-widest uppercase mb-5" style={{ color: P }}>{t.features.tag}</p>
             <h2 className="text-4xl lg:text-5xl font-extrabold text-stone-900 mb-4 tracking-tight">
-              Everything you need,<br />in one place.
+              {t.features.h2_1}<br />{t.features.h2_2}
             </h2>
             <p className="text-stone-500 max-w-md mx-auto">
-              Diagnosis, recipes, plan and progress tracking. That simple.
+              {t.features.sub}
             </p>
           </FadeIn>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {[
-              { icon: Search,    title: 'Hair diagnosis',      desc: 'Pinpoints what\'s damaging your hair in under 60 seconds.' },
-              { icon: Leaf,      title: 'Natural recipes',     desc: 'Homemade treatments with simple, effective ingredients.' },
-              { icon: Calendar,  title: '21-day plan',         desc: 'A day-by-day structured routine you can follow without overthinking.' },
-              { icon: BarChart3, title: 'Visible progress',    desc: 'Track your hair\'s transformation over time.' },
-            ].map((f, i) => (
-              <FadeIn key={i} delay={i * 0.08}>
-                <div
-                  className="bg-white rounded-2xl p-7 h-full transition-all hover:-translate-y-1 hover:shadow-lg"
-                  style={{ border: '1px solid rgba(0,0,0,0.05)', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}
-                >
-                  <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-6" style={{ background: PL2 }}>
-                    <f.icon className="w-5 h-5" style={{ color: P }} />
+            {t.features.items.map((f, i) => {
+              const Icon = FEATURE_ICONS[i];
+              return (
+                <FadeIn key={i} delay={i * 0.08}>
+                  <div
+                    className="bg-white rounded-2xl p-7 h-full transition-all hover:-translate-y-1 hover:shadow-lg"
+                    style={{ border: '1px solid rgba(0,0,0,0.05)', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}
+                  >
+                    <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-6" style={{ background: PL2 }}>
+                      <Icon className="w-5 h-5" style={{ color: P }} />
+                    </div>
+                    <h3 className="font-bold text-stone-800 mb-2">{f.title}</h3>
+                    <p className="text-stone-500 text-sm leading-relaxed">{f.desc}</p>
                   </div>
-                  <h3 className="font-bold text-stone-800 mb-2">{f.title}</h3>
-                  <p className="text-stone-500 text-sm leading-relaxed">{f.desc}</p>
-                </div>
-              </FadeIn>
-            ))}
+                </FadeIn>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -387,49 +283,49 @@ export default function LandingPage() {
       <section className="py-28 px-6 bg-white">
         <div className="max-w-4xl mx-auto">
           <FadeIn className="text-center mb-16">
-            <p className="text-xs font-bold tracking-widest uppercase mb-5" style={{ color: P }}>How it works</p>
+            <p className="text-xs font-bold tracking-widest uppercase mb-5" style={{ color: P }}>{t.how.tag}</p>
             <h2 className="text-4xl lg:text-5xl font-extrabold text-stone-900 tracking-tight">
-              Three steps. Real results.
+              {t.how.h2}
             </h2>
           </FadeIn>
 
           <div>
-            {[
-              { n: '01', icon: Search, title: 'Take the diagnosis',     desc: 'Answer 5 quick questions about your habits. Straightforward — takes less than 1 minute.' },
-              { n: '02', icon: Zap,    title: 'Get your plan',          desc: 'You\'ll receive a 100% personalized routine with recipes tailored to your hair type.' },
-              { n: '03', icon: Leaf,   title: 'See the transformation', desc: 'Follow the 21-day plan. Less frizz, more shine and truly healthy hair.' },
-            ].map((s, i) => (
-              <FadeIn key={i} delay={i * 0.1}>
-                <div
-                  className="flex items-start gap-8 py-10"
-                  style={{ borderBottom: i < 2 ? '1px solid rgba(0,0,0,0.06)' : 'none' }}
-                >
-                  <span
-                    className="text-7xl font-black leading-none flex-shrink-0 hidden sm:block"
-                    style={{ color: PL2, lineHeight: 1, marginTop: '-4px' }}
+            {t.how.steps.map((s, i) => {
+              const Icon = STEP_ICONS[i];
+              const num  = String(i + 1).padStart(2, '0');
+              return (
+                <FadeIn key={i} delay={i * 0.1}>
+                  <div
+                    className="flex items-start gap-8 py-10"
+                    style={{ borderBottom: i < 2 ? '1px solid rgba(0,0,0,0.06)' : 'none' }}
                   >
-                    {s.n}
-                  </span>
-                  <div>
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: PL }}>
-                        <s.icon className="w-4 h-4" style={{ color: P }} />
+                    <span
+                      className="text-7xl font-black leading-none flex-shrink-0 hidden sm:block"
+                      style={{ color: PL2, lineHeight: 1, marginTop: '-4px' }}
+                    >
+                      {num}
+                    </span>
+                    <div>
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: PL }}>
+                          <Icon className="w-4 h-4" style={{ color: P }} />
+                        </div>
+                        <span className="text-xs font-bold tracking-widest uppercase sm:hidden" style={{ color: P }}>{num}</span>
+                        <h3 className="text-xl font-bold text-stone-900">{s.title}</h3>
                       </div>
-                      <span className="text-xs font-bold tracking-widest uppercase sm:hidden" style={{ color: P }}>{s.n}</span>
-                      <h3 className="text-xl font-bold text-stone-900">{s.title}</h3>
+                      <p className="text-stone-500 leading-relaxed">{s.desc}</p>
                     </div>
-                    <p className="text-stone-500 leading-relaxed">{s.desc}</p>
                   </div>
-                </div>
-              </FadeIn>
-            ))}
+                </FadeIn>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* ══ FINAL CTA ═══════════════════════════════════════════════════════ */}
       <section
-        id="waitlist"
+        id="cta"
         className="py-32 px-6 relative overflow-hidden"
         style={{ background: `linear-gradient(135deg, ${P} 0%, ${PD} 100%)` }}
       >
@@ -443,28 +339,28 @@ export default function LandingPage() {
               className="inline-flex items-center gap-2 text-xs font-semibold text-white px-4 py-1.5 rounded-full mb-8"
               style={{ background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.2)' }}
             >
-              🌸 Early access
+              {t.cta.badge}
             </div>
 
             <h2 className="text-4xl lg:text-5xl font-extrabold text-white mb-5 leading-tight tracking-tight">
-              Join the VIP list<br />before we launch.
+              {t.cta.h2_1}<br />{t.cta.h2_2}
             </h2>
 
             <p className="text-pink-100 text-lg mb-10 leading-relaxed">
-              Get your personalized hair care plan in under 60 seconds.<br />
-              Free diagnosis. No credit card required.
+              {t.cta.sub1}<br />
+              {t.cta.sub2}
             </p>
 
             <a
-              href="https://app.natglow.app/quiz"
+              href={QUIZ_URL}
               className="inline-flex items-center gap-2 bg-white font-bold text-base px-10 py-4 rounded-full transition-all hover:opacity-90 active:scale-[0.98] mb-6"
               style={{ color: P, boxShadow: '0 4px 24px rgba(0,0,0,0.15)' }}
             >
-              Start my free diagnosis <ArrowRight className="w-5 h-5" />
+              {t.cta.button} <ArrowRight className="w-5 h-5" />
             </a>
 
             <div className="flex items-center justify-center gap-8 text-pink-200 text-sm">
-              {['Free', 'No credit card', 'Cancel anytime'].map((item, i) => (
+              {t.cta.items.map((item, i) => (
                 <div key={i} className="flex items-center gap-1.5">
                   <Check className="w-3.5 h-3.5" />
                   <span>{item}</span>
@@ -484,9 +380,7 @@ export default function LandingPage() {
               NatGlow
             </span>
           </div>
-          <p className="text-stone-600 text-xs">
-            © {new Date().getFullYear()} NatGlow. All rights reserved.
-          </p>
+          <p className="text-stone-600 text-xs">{t.footer.copyright}</p>
           <a
             href="https://instagram.com"
             target="_blank"
